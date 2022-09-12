@@ -1,6 +1,9 @@
+const fs = require("fs");
 const inquirer = require("inquirer");
 const Engineer = require("./library/Engineer");
 const Manager = require("./library/Manager");
+const Intern = require("./library/Intern");
+const generateHTML = require("./src/generateHTML");
 
 const managers = [];
 const engineers = [];
@@ -29,7 +32,7 @@ function createManager(){
         console.log(answers);
         const { id, email, name, officeNum } = answers;
         managers.push(new Manager(id, email, name, officeNum));
-        console.log(createTeam)
+        console.log(managers);
         createTeam(); 
     })
 }
@@ -62,25 +65,53 @@ function createEngineer(){
     });
 }
 
+function createIntern(){
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the intern's name?"
+        },{
+            type: "input",
+            name: "id",
+            message: "What is the intern's id?"
+        },{
+            type: "input",
+            name: "email",
+            message: "What is the intern's email?"
+        },{
+            type: "input",
+            name: "gitHub",
+            message: "What is the intern's school name?"
+        },
+        ]).then(function(answers){
+            console.log(answers);
+            const { id, email, name, school } = answers;
+            interns.push(new Intern(id, email, name, school));
+            console.log(interns);
+            createTeam(); 
+        });
+};
+
 function createTeam(){
     inquirer.prompt([
         {
             type: "list",
-            name: "engineer",
-            message: "Please choose from the list of emploees.",
+            name: "menuOption",
+            message: "Please choose from the list of emploees you'd like to add.",
             choices: ["Engineer", "Intern", "None"]
         },
     ]).then(function(answers){
         console.log(answers);
         switch(answers.menuOption){
             case "Intern":
-            // createIntern();
+            createIntern();
             break;
             case "Engineer":
             createEngineer();
             break;
             default: 
-            // generateHTML();
+            fs.writeFileSync("./dist/team.html", generateHTML(managers, engineers, interns));
             return;
         }
     });
