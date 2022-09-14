@@ -1,29 +1,60 @@
-const generateTeam = function (managers, engineers, interns) {
+
+const generateTeam = function (team) {
     let html = "";
-    function generateManagerHTML(managers) {
-        
-        managers.forEach(manager => {
-            console.log(manager);
-            html += `
+
+
+    team.managers.forEach(manager => {
+
+        html += `
     <div class="card cal" style="width: 18rem;">
-                <div class="card-header" style="background-color:rgba(0, 0, 255, 0.738); color:white;">
-                    <h2>${manager.getName()}</h2>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">ID: ${manager.getId()}</li>
-                    <li class="list-group-item">Email: ${manager.getEmail()}</li>
-                    <li class="list-group-item">Office Number: ${manager.getOfficeNum()}</li>
-                </ul>
-            </div>
+        <div class="card-header" style="background-color:rgba(0, 0, 255, 0.738); color:white;">
+            <h2>${manager.getName()}</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${manager.getId()}</li>
+            <li class="list-group-item">Email: ${manager.getEmail()}</li>
+            <li class="list-group-item">Office Number: ${manager.getOfficeNum()}</li>
+        </ul>
+    </div>
     `;
-    console.log(html);
-     });
-    }
-    generateManagerHTML(managers);
-    return html
+    });
+
+    team.engineers.forEach(engeneer => {
+        html += `
+        <div class="card cal" style="width: 18rem;">
+        <div class="card-header" style="background-color:rgba(0, 0, 255, 0.738); color:white;">
+            <h2>${engeneer.getName()}</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${engeneer.getId()}</li>
+            <li class="list-group-item">Email: ${engeneer.getEmail()}</li>
+            <li class="list-group-item">GitHub username: ${engeneer.getGitHub()}</li>
+        </ul>
+    </div>
+        `;
+    });
+
+    team.interns.forEach(intern => {
+        html += `
+        <div class="card cal" style="width: 18rem;">
+        <div class="card-header" style="background-color:rgba(0, 0, 255, 0.738); color:white;">
+            <h2>${intern.getName()}</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${intern.getId()}</li>
+            <li class="list-group-item">Email: ${intern.getEmail()}</li>
+            <li class="list-group-item">School Name: ${intern.getSchool()}</li>
+        </ul>
+    </div>
+        `
+    })
+
+    return html;
 }
 
-const generateHTML = function(managers, engineers, interns) {
+
+const generateHTML = function (team) {
+    // console.log(team);
     return `
     <!doctype html>
 <html lang="en">
@@ -45,7 +76,7 @@ const generateHTML = function(managers, engineers, interns) {
     </header>
     <main class="container text-center p-5">
         <section class="row">
-           ${generateTeam(managers, engineers, interns)}
+           ${generateTeam(team)}
         </section>
     
         
