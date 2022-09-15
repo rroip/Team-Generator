@@ -81,7 +81,7 @@ function createIntern(){
             message: "What is the intern's email?"
         },{
             type: "input",
-            name: "gitHub",
+            name: "school",
             message: "What is the intern's school name?"
         },
         ]).then(function(answers){
